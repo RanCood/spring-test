@@ -15,11 +15,11 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.0.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:5.0.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.0.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.26" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-annotations-api:9.0.26" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-jasper:9.0.26" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.26" />
-          <element id="library" level="project" name="Maven: org.eclipse.jdt:ecj:3.18.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.0" />
+          <element id="library" level="project" name="Maven: org.reflections:reflections:0.9.12" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.26.0-GA" />
         </element>
       </element>
       <element id="directory" name="META-INF">
