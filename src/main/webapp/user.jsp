@@ -1,4 +1,4 @@
-<%@ page import="com.zg.st.entity.User" %><%--
+<%@ page import="com.zg.st.servlet.entity.User" %><%--
   Created by IntelliJ IDEA.
   User: zg
   Date: 2020/6/10

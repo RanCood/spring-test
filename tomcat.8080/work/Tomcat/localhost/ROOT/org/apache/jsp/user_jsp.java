@@ -32,7 +32,7 @@ public final class user_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_imports_packages.add("javax.servlet.http");
     _jspx_imports_packages.add("javax.servlet.jsp");
     _jspx_imports_classes = new java.util.HashSet<>();
-    _jspx_imports_classes.add("com.zg.st.entity.User");
+    _jspx_imports_classes.add("User");
   }
 
   private volatile javax.el.ExpressionFactory _el_expressionfactory;
