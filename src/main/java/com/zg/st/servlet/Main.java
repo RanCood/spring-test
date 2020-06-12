@@ -1,4 +1,4 @@
-package com.zg.st;
+package com.zg.st.servlet;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
