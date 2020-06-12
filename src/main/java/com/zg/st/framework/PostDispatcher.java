@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -18,7 +19,8 @@ public class PostDispatcher extends Dispatcher{
     //方法参数类型
     ObjectMapper objectMapper; // JSON映射
 
-    public ModelAndView invoke(HttpServletRequest request, HttpServletResponse response) throws InvocationTargetException, IllegalAccessException, IOException {
+    @Override
+    public Object invoke(HttpServletRequest request, HttpServletResponse response) throws InvocationTargetException, IllegalAccessException, IOException {
         Object[] arguments = new Object[parameterClasses.length];
         for (int i = 0; i < parameterClasses.length; i++) {
             Class<?> parameterClass = parameterClasses[i];
@@ -33,7 +35,14 @@ public class PostDispatcher extends Dispatcher{
                 arguments[i] = this.objectMapper.readValue(reader,parameterClass);
             }
         }
-        return (ModelAndView) this.method.invoke(this.instance, arguments);
+        Object obj = this.method.invoke(this.instance, arguments);
+        if(isResponseBody) {
+            PrintWriter pw = response.getWriter();
+            pw.write(writeValueAsString(obj));
+            pw.flush();
+            return null;
+        }
+        return obj;
     }
 
     public PostDispatcher() {

@@ -33,9 +33,22 @@ public class DispatcherServlet extends HttpServlet {
     private ViewEngine viewEngine;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        System.out.println("doGet...");
         String path = req.getRequestURI().substring(req.getContextPath().length());
-        GetDispatcher dispatcher = getDispatcherMap.get(path);
+        Dispatcher dispatcher = getDispatcherMap.get(path);
+        doService(req,resp,dispatcher);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        System.out.println("doPost...");
+        String path = req.getRequestURI().substring(req.getContextPath().length());
+        Dispatcher dispatcher = postDispatcherMap.get(path);
+        doService(req,resp,dispatcher);
+    }
+
+    public void doService(HttpServletRequest req, HttpServletResponse resp, Dispatcher dispatcher) throws IOException {
         if (Objects.isNull(dispatcher)) {
             resp.sendError(404);
             return;
@@ -49,10 +62,10 @@ public class DispatcherServlet extends HttpServlet {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        if(obj == null) {
+        if (obj == null) {
             return;
         }
-        if(obj instanceof ModelAndView) {
+        if (obj instanceof ModelAndView) {
             if (mv == null) {
                 return;
             }
@@ -98,7 +111,7 @@ public class DispatcherServlet extends HttpServlet {
                         parameterNames[i] = parameterTypes[i].getName();
                     }
                     GetDispatcher getDispatcher = new GetDispatcher(instance, method, parameterNames, parameterTypes);
-                    if(method.isAnnotationPresent(ResponseBody.class)) {
+                    if (method.isAnnotationPresent(ResponseBody.class)) {
                         getDispatcher.isResponseBody = true;
                     }
                     this.getDispatcherMap.put(path[0], getDispatcher);
@@ -107,8 +120,8 @@ public class DispatcherServlet extends HttpServlet {
                     String[] path = annotation.value();
                     Class<?>[] parameterTypes = method.getParameterTypes();
                     ObjectMapper objectMapper = new ObjectMapper();
-                    PostDispatcher postDispatcher = new PostDispatcher(instance, method, parameterTypes,objectMapper);
-                    if(method.isAnnotationPresent(ResponseBody.class)) {
+                    PostDispatcher postDispatcher = new PostDispatcher(instance, method, parameterTypes, objectMapper);
+                    if (method.isAnnotationPresent(ResponseBody.class)) {
                         postDispatcher.isResponseBody = true;
                     }
                     this.postDispatcherMap.put(path[0], postDispatcher);

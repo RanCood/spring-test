@@ -1,5 +1,6 @@
 package com.zg.st.controller;
 
+import com.zg.st.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +14,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ContentController {
     @GetMapping("/content")
-    public ModelAndView content(){
+    public User content(HttpSession session){
+        User user = (User) session.getAttribute("user");
         return null;
     }
 

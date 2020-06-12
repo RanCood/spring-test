@@ -1,8 +1,5 @@
 package com.zg.st.framework;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,11 +13,11 @@ import java.lang.reflect.Method;
  * @date: 2020/6/10 16:14
  */
 public class GetDispatcher extends Dispatcher {
-    private static ObjectMapper objectMapper = new ObjectMapper();
     //方法参数名称
     private String[] parameterNames;
 
-    public Object invoke(HttpServletRequest req, HttpServletResponse resp) throws InvocationTargetException, IllegalAccessException {
+    @Override
+    public Object invoke(HttpServletRequest req, HttpServletResponse resp) throws InvocationTargetException, IllegalAccessException, IOException {
         Object[] arguments = new Object[parameterClasses.length];
         for (int i = 0; i < parameterClasses.length; i++) {
             Class<?> parameterClass = parameterClasses[i];
@@ -45,26 +42,12 @@ public class GetDispatcher extends Dispatcher {
         }
         Object obj = this.method.invoke(this.instance, arguments);
         if (isResponseBody) {
-            try {
-                PrintWriter pw = resp.getWriter();
-                pw.write(writeValueAsString(obj));
-                pw.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            return this.method.invoke(this.instance, arguments);
+            PrintWriter pw = resp.getWriter();
+            pw.write(writeValueAsString(obj));
+            pw.flush();
+            return null;
         }
-        return null;
-    }
-
-    public String writeValueAsString(Object value) {
-        try {
-            return objectMapper.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
-        }
+        return obj;
     }
 
     private String getOrDefault(HttpServletRequest request, String parameterName, String defaultValue) {
