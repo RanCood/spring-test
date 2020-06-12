@@ -23,7 +23,7 @@
     </build>
     <properties>
         <spring.version>5.2.0.RELEASE</spring.version>
-        <tomcat.version>9.0.26</tomcat.version>
+        <tomcat.version>9.0.36</tomcat.version>
     </properties>
     <dependencies>
         <dependency>
