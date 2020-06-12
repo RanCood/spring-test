@@ -1,6 +1,6 @@
 package com.zg.st.spring.service;
 
-import com.zg.st.servlet.entity.User;
+import com.zg.st.spring.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -24,9 +24,8 @@ public class UserService {
     @Value("classpath:/test.properties")
     private Resource resource;
 
-    public User login(String name,long id){
-        User user = new User(id,name,null);
-
+    public User login(String name, long id){
+        User user = new User(name,11,1);
         return user;
     }
 
